@@ -57,8 +57,8 @@ class NormalUser(UserModel):
 
     def dislike(self):
         """Dislikes (swipes left) the user"""
-        resp = r.post('/pass/{}'.format(self.id))
-        return 'passed'
+        resp = r.post('/pass/{}'.format(self.id), {})
+        return resp
 
 
 class MatchUser(UserModel):

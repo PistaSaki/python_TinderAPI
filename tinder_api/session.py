@@ -48,6 +48,16 @@ class Session():
         """Returns a [] of matches"""
         return r.post('/updates', {"last_activity_date": ""})['matches']
 
+    def yield_likes_you(self):
+        """Returns a generator of matches as MatchUsers()"""
+        for match in reversed(self.list_likes_you()):
+            yield u.UserController(match['user']['_id']).get_user()
+
+    def list_likes_you(self):
+        """Returns a [] of likes-you"""
+        resp = r.get('/v2/fast-match')
+        return resp['data']['results']
+
     def get_updates(self, date=''):
         """Returns the profile 'updates' since date
         Date formatting is specific:

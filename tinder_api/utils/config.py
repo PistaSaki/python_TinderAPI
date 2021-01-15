@@ -1,19 +1,33 @@
-with open("tinder_api/utils/token.txt", "r") as f:
-    tinder_token = f.read()
+from pathlib import Path
+from typing import Dict
 
-# it is best for you to write in the token to save yourself the file I/O
-# especially if you have python byte code off
-#tinder_token = ""
 
-headers = {
-    'app_version': '6.9.4',
-    'platform': 'ios',
-    'content-type': 'application/json',
-    'User-agent': 'Tinder/7.5.3 (iPohone; iOS 10.3.2; Scale/2.00)',
-    'X-Auth-Token': tinder_token,
-}
+def _read_token_from_file(path=None) -> str:
+    try:
+        path = path or Path(__file__).parent.parent.parent / "token.txt"
+        with open(path, "rt") as f:
+            tinder_token = f.read()
+        return tinder_token
+    except FileNotFoundError:
+        pass
 
+
+tinder_token = _read_token_from_file()
 host = 'https://api.gotinder.com'
 
-if __name__ == '__main__':
-    pass
+def set_tinder_token(val:str) -> None:
+    global tinder_token
+    tinder_token = val
+
+
+def headers() -> Dict[str, str]:
+    if not tinder_token:
+        raise ValueError("`tinder_token` is not yet assigned. Please call `set_tinder_token`.")
+
+    return {
+        'app_version': '6.9.4',
+        'platform': 'ios',
+        'content-type': 'application/json',
+        'User-agent': 'Tinder/7.5.3 (iPohone; iOS 10.3.2; Scale/2.00)',
+        'X-Auth-Token': tinder_token,
+    }
