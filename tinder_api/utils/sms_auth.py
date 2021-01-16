@@ -35,7 +35,7 @@ def save_token():
     resp = requests.request("POST", url,
             data=json.dumps(data), headers=headers)
     api_token = resp.json()['data']['api_token']
-    with open('token.txt', 'w') as f:
+    with open('../../token.txt', 'w') as f:
         f.write(api_token)
     print(api_token)
 
