@@ -12,7 +12,6 @@ class Session():
         self.meta = r.get('/meta')
         self.metav2 = r.get('/v2/meta')
 
-
     def get_id(self):
         """Returns the _id of the Session"""
         return r.get('/profile')['_id']

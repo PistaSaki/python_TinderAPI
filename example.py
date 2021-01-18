@@ -1,7 +1,8 @@
 from tinder_api import Session, set_tinder_token
-import itertools
-from datetime import datetime
+from tinder_api.try_selenium_phone import find_token
 
+token = find_token()
+set_tinder_token(token)
 sess = Session() # inits the session
 
 print("My _id is %s" %sess.get_id())
@@ -10,15 +11,15 @@ l = sess.list_likes_you()
 print(f"noof likes-you: {len(l)}")
 print([match.name for match in sess.yield_likes_you()])
 
-for match in sess.yield_likes_you():
-    print(match.name)
-    break
-
-
-for user in sess.yield_users():
-    break
-
-user
+# for match in sess.yield_likes_you():
+#     print(match.name)
+#     break
+#
+#
+# for user in sess.yield_users():
+#     break
+#
+# user
 #sess.update_profile(bio="VIM is the best")
 
 # for user in itertools.islice(sess.yield_users(), 10):
