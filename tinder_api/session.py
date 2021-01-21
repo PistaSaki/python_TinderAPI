@@ -1,3 +1,5 @@
+from typing import Dict
+
 import requests
 
 from tinder_api import user as u
@@ -87,6 +89,12 @@ class Session():
         if 'error' in resp:
             return "Could not change location. Remeber +-=NS_lat and +-=EW_lon"
         return resp
+
+    def get_location(self) -> Dict[str, float]:
+        """Return dictionary with keys `["lat", "lon"]`."""
+        meta = r.get('/meta')
+        travel = meta['travel']
+        return travel['travel_pos']
 
     def reset_location(self):
         """Resets the session user's location to original location for Tinder+"""
