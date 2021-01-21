@@ -1,6 +1,7 @@
+from pathlib import Path
+
 from selenium.webdriver.common.keys import Keys
 from seleniumwire import webdriver
-from google_secret import username, password
 
 
 
@@ -8,7 +9,8 @@ from google_secret import username, password
 
 options = webdriver.ChromeOptions()
 options.add_argument('user-agent = Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36')
-driver = webdriver.Chrome(chrome_options=options, executable_path=r"D:\python\chromedriver_win32\chromedriver.exe")
+path_to_chromedriver = Path(r"D:\stevko\chromedriver.exe")
+driver = webdriver.Chrome(chrome_options=options, executable_path=str(path_to_chromedriver))
 
 driver.get('https://tinder.com')
 
