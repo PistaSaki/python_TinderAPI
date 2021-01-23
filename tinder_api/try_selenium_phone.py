@@ -23,7 +23,7 @@ print("Now manually login with phone number.")
 
 def find_token():
     driver.get('https://tinder.com/app/recs')
-    for request in driver.requests:
+    for request in reversed(driver.requests):
         for key, value in request.headers.items():
             if key == 'X-Auth-Token':
                 return value
